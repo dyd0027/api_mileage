@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Review">
+	<resultMap type="Review" id="ReivewMap">
+		<result property="reviewID" column="reviewID" />
+		<result property="userID" column="userID" />
+		<result property="placeID" column="placeID" />
+		<result property="content" column="content" />
+		<result property="action" column="action" />
+		<result property="point" column="point" />
+	</resultMap>
+	<select id="reviewCheck" resultType="String" parameterType="Review">
+		select count(*) 
+		from review 
+		where placeID=#{placeID} and userID=#{userID}
+	</select>
+	<select id="reviewCnt" resultType="String" parameterType="Review">
+		select count(*) 
+		from review 
+		where placeID=#{placeID}
+	</select>
+	<insert id="reviewHistoryInsert" parameterType="Review">
+		insert  into review_history(reviewID,placeID,userID,action,content,date,point) 
+		values(#{reviewID},#{placeID},#{userID},#{action},#{content},now(),#{point})
+	</insert>
+	<insert id="reviewInsert" parameterType="Review">
+		insert  into review(reviewID,placeID,userID) 
+		values(#{reviewID},#{placeID},#{userID})
+	</insert>
+	<delete id="reviewDelete">
+		delete from review
+		where reviewID=#{reviewID}
+	</delete>
+	<select id="getDeletePoint" resultType="int">
+		select point 
+		from review_history 
+		where reviewID = #{reviewID} 
+		order by date desc limit 1
+	</select>
+</mapper>

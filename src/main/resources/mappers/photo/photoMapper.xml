@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="Photo">
+	<resultMap type="Photo" id="PhotoMap">
+		<result property="reviewID" column="reviewID" />
+		<result property="photoID" column="photoID" />
+	</resultMap>
+	<insert id="photoInsert" parameterType="Photo">
+		insert into photo(reviewID,photoID)
+		values(#{reviewID},#{photoID})
+	</insert>
+	<delete id="photoDelete">
+		delete from photo
+		where reviewID=#{reviewID}
+	</delete>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<settings>
+		<setting value="NULL" name="jdbcTypeForNull"/>
+	</settings>
+	<typeAliases>
+		<typeAlias type="com.triple.events.user.User" alias="User"/>
+		<typeAlias type="com.triple.events.review.Review" alias="Review"/>
+		<typeAlias type="com.triple.events.place.Place" alias="Place"/>
+		<typeAlias type="com.triple.events.photo.Photo" alias="Photo"/>
+		
+	</typeAliases>
+	<mappers>
+		<mapper resource="mappers/user/userMapper.xml"/>		
+		<mapper resource="mappers/review/reviewMapper.xml"/>		
+		<mapper resource="mappers/place/placeMapper.xml"/>		
+		<mapper resource="mappers/photo/photoMapper.xml"/>		
+	</mappers>
+</configuration>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="User">
+	<resultMap type="User" id="UserMap">
+		<result property="userID" column="userID" />
+		<result property="totalCount" column="totalCount" />
+	</resultMap>
+	<select id="idCheck" resultType="String">
+		SELECT count(*) FROM USER
+		WHERE userID = #{userID}
+	</select>
+	<insert id="userInsert">
+		insert  into place(userID) values(#{userID})
+	</insert>
+	<update id="updateCount">
+		update user 
+		set totalcount= totalcount+#{totalCount} 
+		where userID=#{userID}
+	</update>
+</mapper>
