@@ -1,5 +1,8 @@
 package com.triple.events.review;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +39,19 @@ public class ReviewDAO {
 	public int getDeletePoint(String reviewID) {
 		int result = sqlSession.selectOne("Review.getDeletePoint",reviewID);
 		return result;
+	}
+	
+	public String reviewContent(String reviewID) {
+		String result = sqlSession.selectOne("Review.reviewContent",reviewID);
+		return result;
+	}
+	
+	public List<Review> getListByUserPlace(String userID, String placeID){
+		Review review = new Review();
+		review.setUserID(userID);
+		review.setPlaceID(placeID);
+		List<Review> list = new ArrayList<Review>();
+		list= sqlSession.selectList("Review.getListByUserPlace", review);
+		return list;
 	}
 }

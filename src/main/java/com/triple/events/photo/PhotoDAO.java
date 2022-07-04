@@ -19,6 +19,11 @@ public class PhotoDAO {
 	public void photoDelete(String reviewID) {
 		sqlSession.selectOne("Photo.photoDelete",reviewID);
 	}
+	
+	public int photoCnt(String reviewID){
+		int result = sqlSession.selectOne("Photo.photoCnt",reviewID);
+		return result;
+	}
 }
 
 

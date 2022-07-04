@@ -30,7 +30,7 @@ public class UserController {
 	@Autowired
 	ReviewService reviewService;
 	
-	@RequestMapping(value="/events",method=RequestMethod.POST)
+	@RequestMapping(value="/events2",method=RequestMethod.POST)
 	public ModelAndView reviewAdd(HttpSession session, HttpServletRequest request, Model model) throws ParseException {
 		//jsonView 형식
 		ModelAndView mav = new ModelAndView("jsonView");

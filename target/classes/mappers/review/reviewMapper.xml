@@ -37,4 +37,16 @@
 		where reviewID = #{reviewID} 
 		order by date desc limit 1
 	</select>
+	<select id="reviewContent" resultType="String">
+		select content
+		from review_history
+		where reviewID = #{reviewID} 
+		order by date desc limit 1
+	</select>
+	<select id="getListByUserPlace" resultType="Review" parameterType="Review">
+		select action,point
+		from review_history
+		where userID=#{userID} and placeID=#{placeID}
+		order by date asc
+	</select>
 </mapper>

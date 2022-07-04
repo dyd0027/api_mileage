@@ -13,4 +13,9 @@
 		delete from photo
 		where reviewID=#{reviewID}
 	</delete>
+	<select id="photoCnt" resultType="int">
+		select count(*)
+		from photo
+		where reviewID=#{reviewID}
+	</select>
 </mapper>
