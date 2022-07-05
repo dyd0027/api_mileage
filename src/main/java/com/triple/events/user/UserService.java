@@ -4,6 +4,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface UserService {
-	public String idCheck(String userID);
-	public void userInsert(String userID);
+	public int getTotalCount(String userID);
+	public int idCheck(String userID);
 }

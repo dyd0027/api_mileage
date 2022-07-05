@@ -7,16 +7,16 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService{
 
 	@Autowired
-	UserDAO dao;
+	UserDAO userDao;
+
+	@Override
+	public int getTotalCount(String userID) {
+		return userDao.getTotalCount(userID);
+	}
 	
 	@Override
-	public String idCheck(String userID) {
-		return dao.idCheck(userID);
+	public int idCheck(String userID) {
+		return userDao.idCheck(userID);
 	}
-	@Override
-	public void userInsert(String userID) {
-		dao.userInsert(userID);
-	}
-
 	
 }

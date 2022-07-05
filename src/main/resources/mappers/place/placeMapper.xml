@@ -5,9 +5,10 @@
 		<result property="placeID" column="placeID" />
 		<result property="placeName" column="placeName" />
 	</resultMap>
-	<select id="idCheck" resultType="String">
-		SELECT count(*) FROM USER
-		WHERE userID = #{userID}
+	<select id="placeCheck" resultType="int">
+		SELECT count(*) 
+		FROM place
+		WHERE placeID = #{plcaeID}
 	</select>
 
 </mapper>

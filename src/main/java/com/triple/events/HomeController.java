@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.triple.events.photo.Photo;
+import com.triple.events.place.PlaceService;
 import com.triple.events.review.Review;
 import com.triple.events.review.ReviewService;
 import com.triple.events.user.UserService;
@@ -40,6 +41,8 @@ public class HomeController {
 	UserService userService;
 	@Autowired
 	ReviewService reviewService;
+	@Autowired
+	PlaceService placeService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -95,7 +98,19 @@ public class HomeController {
 				String content = (String) jsonObject.get("content");
 				JSONArray attactedPhotoIds= (JSONArray) jsonObject.get("attactedPhotoIds");
 				String userID = (String) jsonObject.get("userID");
+				int  userCheck = userService.idCheck(userID);
+				if(userCheck ==0) {
+					mav.addObject("result","false");
+					mav.addObject("msg","없는 계정입니다.");
+					return mav;
+				}
 				String placeID = (String) jsonObject.get("placeID");
+				int placeCheck = placeService.placeCheck(placeID);
+				if(placeCheck==0) {
+					mav.addObject("result","false");
+					mav.addObject("msg","없는 장소입니다.");
+					return mav;
+				}
 				Review reviewDTO = new Review();
 				//ADD, MOD, DELETE
 				reviewDTO.setReviewID(reviewID);
@@ -184,15 +199,67 @@ public class HomeController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/events33",method=RequestMethod.GET)
+	@RequestMapping(value="/inquire",method=RequestMethod.GET)
 	public ModelAndView reviewManage(HttpSession session, HttpServletRequest request) throws ParseException {
 		//jsonView 형식
 		ModelAndView mav = new ModelAndView("jsonView");
 		String userID = request.getParameter("userID");
+		int  userCheck = userService.idCheck(userID);
 		String placeID = request.getParameter("placeID");
-		List<Review> list = reviewService.manage(userID,placeID);
+		int placeCheck = placeService.placeCheck(placeID);
+		if(userCheck ==0) {
+			mav.addObject("result","false");
+			mav.addObject("msg","없는 계정입니다.");
+		}
 		
-		
+		if(userID!=null&&placeID!=null) {
+			if(placeCheck==0) {
+				mav.addObject("result","false");
+				mav.addObject("msg","없는 장소입니다.");
+			}
+			List<Review> list = reviewService.manageUserPlace(userID,placeID);
+			JSONArray history= new JSONArray();
+			int point =0;
+			for(int i =0;i<list.size();i++) {
+				String date = list.get(i).getDate();
+				String action = list.get(i).getAction();
+				int tmpPoint = list.get(i).getPoint();
+				history.add("date:"+date+", action:"+action+", point:"+tmpPoint);
+				if(i==list.size()-1) {
+					point = tmpPoint;
+				}
+			}
+			mav.addObject("userID",userID);
+			mav.addObject("placeID",placeID);
+			mav.addObject("history", history);
+			mav.addObject("point", point);
+		}else if(userID!=null&&placeID==null) {
+			int totalCount = userService.getTotalCount(userID);
+			mav.addObject("totalCount", totalCount);
+			mav.addObject("userID", userID);
+			List<String> placeIDs = reviewService.getPlaceIDs(userID);
+			JSONArray jsonArray= new JSONArray();
+			for(int i=0;i<placeIDs.size();i++) {
+				List<Review> list = reviewService.manageUserPlace(userID,placeIDs.get(i));
+				JSONArray history= new JSONArray();
+				JSONObject jsonOb = new JSONObject();
+				int point = 0;
+				for(int j =0;j<list.size();j++) {
+					String date = list.get(j).getDate();
+					String action = list.get(j).getAction();
+					int tmpPoint = list.get(j).getPoint();
+					history.add("date:"+date+", action:"+action+", point:"+tmpPoint);
+					if(j==list.size()-1) {
+						point = tmpPoint;
+					}
+				}
+				jsonOb.put("point", point);
+				jsonOb.put("placeID", placeIDs.get(i));
+				jsonOb.put("history", history);
+				jsonArray.add(jsonOb);
+			}
+			mav.addObject("items",jsonArray);
+		}
 		return mav;
 	}
 }

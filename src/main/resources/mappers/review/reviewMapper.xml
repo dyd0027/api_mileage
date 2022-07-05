@@ -31,22 +31,34 @@
 		delete from review
 		where reviewID=#{reviewID}
 	</delete>
-	<select id="getDeletePoint" resultType="int">
+	<select id="getDeletePoint" resultType="int" parameterType="Review">
 		select point 
 		from review_history 
-		where reviewID = #{reviewID} 
+		where userID = #{userID} and placeID=#{placeID} 
 		order by date desc limit 1
 	</select>
-	<select id="reviewContent" resultType="String">
+	<select id="getReviewID" resultType="String" parameterType="Review">
+		select reviewID 
+		from review_history 
+		where userID = #{userID} and placeID=#{placeID} 
+		order by date desc limit 1
+	</select>
+	<select id="reviewContent" resultType="String" parameterType="Review">
 		select content
 		from review_history
-		where reviewID = #{reviewID} 
+		where userID = #{userID} and placeID=#{placeID}  
 		order by date desc limit 1
 	</select>
 	<select id="getListByUserPlace" resultType="Review" parameterType="Review">
-		select action,point
+		select action,point,date
 		from review_history
 		where userID=#{userID} and placeID=#{placeID}
 		order by date asc
+	</select>
+	<select id="getPlaceIDs" resultType="String" parameterType="Review">
+		select placeID 
+		from review_history 
+		where userID=#{userID}
+		group by placeID;
 	</select>
 </mapper>

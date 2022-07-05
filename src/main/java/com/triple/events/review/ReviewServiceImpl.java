@@ -41,8 +41,8 @@ public class ReviewServiceImpl implements ReviewService{
 			point +=1;
 		}
 		reviewDTO.setPoint(point);
-		reviewDao.reviewHistoryInsert(reviewDTO);
 		reviewDao.reviewInsert(reviewDTO);
+		reviewDao.reviewHistoryInsert(reviewDTO);
 		if(photo.length>0) {
 			for(int i=0;i<photo.length;i++) {
 				photoDao.photoInsert(photo[i]);
@@ -56,11 +56,11 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	@Override
 	public int delete(Review reviewDTO) {
-		reviewDao.reviewDelete(reviewDTO.getReviewID());
-		photoDao.photoDelete(reviewDTO.getReviewID());
-		int deletePoint = (-1)*reviewDao.getDeletePoint(reviewDTO.getReviewID());
+		String reviewID = reviewDao.getReviewID(reviewDTO);
+		reviewDao.reviewDelete(reviewID);
+		int deletePoint = (-1)*reviewDao.getDeletePoint(reviewDTO);
 		//TODO 0으로 할지 deletePoint로 할지 ? >>0으로 해야 이력 관리가 쉬어질 듯
-		reviewDTO.setPoint(deletePoint);
+		reviewDTO.setPoint(0);
 		reviewDao.reviewHistoryInsert(reviewDTO);
 
 		User user = new User();
@@ -72,10 +72,10 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	@Override
 	public int[] modify(Review reviewDTO,Photo[] photo) {
-		String reviewID = reviewDTO.getReviewID();
-		String beforeContent = reviewDao.reviewContent(reviewID);
+		String reviewID = reviewDao.getReviewID(reviewDTO);
+		String beforeContent = reviewDao.reviewContent(reviewDTO);
 		String modContent = reviewDTO.getContent();
-		int beforePoint = reviewDao.getDeletePoint(reviewID);
+		int beforePoint = reviewDao.getDeletePoint(reviewDTO);
 		if(beforePoint ==0 ){
 			return null;
 		}
@@ -85,6 +85,7 @@ public class ReviewServiceImpl implements ReviewService{
 		}else if(beforeContent !=null && modContent==null){
 			point --;
 		}
+		
 		int beforePhotoCnt = photoDao.photoCnt(reviewID);
 		int modPhotoCnt = photo.length;
 		
@@ -93,10 +94,10 @@ public class ReviewServiceImpl implements ReviewService{
 		}else if(beforePhotoCnt >0 && modPhotoCnt ==0){
 			point--;
 		}
-		photoDao.photoDelete(reviewID);
-		
 		reviewDTO.setPoint(beforePoint+point);
+		reviewDao.reviewInsert(reviewDTO);
 		reviewDao.reviewHistoryInsert(reviewDTO);
+		reviewDao.reviewDelete(reviewID);
 		if(photo.length>0) {
 			for(int i=0;i<photo.length;i++) {
 				photoDao.photoInsert(photo[i]);
@@ -112,13 +113,16 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public List<Review> manage(String userID,String placeID){
+	public List<Review> manageUserPlace(String userID,String placeID){
 		List<Review> list = new ArrayList<Review>();
-		if(!userID.equals(null)&&!placeID.equals(null)){
-			list = reviewDao.getListByUserPlace(userID, placeID);
-		}else if(userID.equals(null)&&placeID.equals(null)){
-			
-		}
+		list = reviewDao.getListByUserPlace(userID, placeID);
+		return list;
+	};
+	
+	@Override
+	public List<String> getPlaceIDs(String userID){
+		List<String> list = new ArrayList<String>();
+		list = reviewDao.getPlaceIDs(userID);
 		return list;
 	};
 

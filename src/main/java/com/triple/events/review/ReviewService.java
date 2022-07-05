@@ -17,5 +17,6 @@ public interface ReviewService {
 	public int insert(Review reviewDTO,Photo[] photo);
 	public int delete(Review reviewDTO);
 	public int[] modify(Review reviewDTO,Photo[] photo);
-	public List<Review> manage(String userID,String placeID);
+	public List<Review> manageUserPlace(String userID,String placeID);
+	public List<String> getPlaceIDs(String userID);
 }
