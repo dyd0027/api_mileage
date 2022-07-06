@@ -11,11 +11,11 @@
 
 ---
 ## 1_개발 환경
-##### Java8
-##### MySQL(v8.0)
-##### STS3
-##### mybatis
-##### Tomcat(v8.5)
+- Java8
+- MySQL(v8.0)
+- STS3
+- mybatis
+- Tomcat(v8.5)
 
 ## 2_스키마 설계
 - user
