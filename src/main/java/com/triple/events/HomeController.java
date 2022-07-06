@@ -190,6 +190,9 @@ public class HomeController {
 						}
 						
 					}
+				}else {
+					mav.addObject("result","false");
+					mav.addObject("msg","add, mod, delete중 하나를 사용하세요");
 				}
 			}
 		} catch (ParseException e) {
@@ -215,7 +218,7 @@ public class HomeController {
 		if(userID!=null&&placeID!=null) {
 			if(placeCheck==0) {
 				mav.addObject("result","false");
-				mav.addObject("msg","없는 장소입니다.");
+				mav.addObject("msg","없는 장소입니다. ");
 			}
 			List<Review> list = reviewService.manageUserPlace(userID,placeID);
 			JSONArray history= new JSONArray();
