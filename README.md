@@ -69,7 +69,7 @@
 ![4  delete](https://user-images.githubusercontent.com/82923905/177498358-4f1608d0-e0d0-481f-b682-0dad868f2986.JPG)
 #### 4.4 유저 B로 장소 a 등록(content,최초 등록 --> point : 2점)
 ![5  다른계정 첫 add](https://user-images.githubusercontent.com/82923905/177498736-ff0171f9-2d1c-4cf0-b70c-2bd401c30989.JPG)
-#### 4.5 유저 B로 장소 a 등록(content, 최초 등록x --> point : 1점)
+#### 4.5 유저 A로 장소 a 등록(content, 최초 등록x --> point : 1점)
 ![6  기존 계정 add](https://user-images.githubusercontent.com/82923905/177499023-6afc98fd-8cc0-4ba9-9a3f-b6333c033278.JPG)
 #### 4.6 계정별 이력 조회(변수 / userID : 유저 A)
 ![7  계정별 이력 조회](https://user-images.githubusercontent.com/82923905/177499185-3a86cf6d-bacc-48a9-89f1-47c6e34a454a.JPG)
