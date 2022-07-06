@@ -57,10 +57,11 @@
 ## 4_실행 결과
 |alias|ID|
 |:--:|:--:|
-|user A|TODO|
-|user B|TODO|
-|place a|TODO|
-|place b|TODO|
+|user A|0ffaa5ef-faaf-11ec-9047-b4a9fceece61|
+|user B|10e6a68f-faaf-11ec-9047-b4a9fceece61|
+|place a|15d4e96a-faaf-11ec-9047-b4a9fceece61|
+|place b|162f52d6-faaf-11ec-9047-b4a9fceece61|
+|place c|803a7c57-fab7-11ec-9047-b4a9fceece61|
 #### 4.1 유저 A로 장소 a 첫 리뷰 등록(content, attactedPhotosIds,최초 등록 --> point : 3점)
 ![2  첫 add](https://user-images.githubusercontent.com/82923905/177497944-0b10f1cd-348d-46e0-bc15-608d63e8f3bd.JPG)
 #### 4.2 유저 A로 장소 a 수정(content --> point : 2점)
@@ -81,8 +82,15 @@
 
 ## 5_예외사항
   - result : false // msg : 각 에러 사항
-##### 1. 없는 계정 입력
-##### 2. 없는 장소 입력
-##### 3. add하기전에 mod or delete 실행
-##### 4. add or mod 후에 add 실행
-##### 5. add하기전 or delete 실행후 delete실행
+#### 5.1 없는 계정 입력
+![9  없는 계정](https://user-images.githubusercontent.com/82923905/177537120-e76ede03-62b9-4d26-a853-cea569aee1eb.JPG)
+#### 5.2 없는 장소 입력
+![10 없는장소](https://user-images.githubusercontent.com/82923905/177537138-cf90576a-03e4-42a2-9f65-4421929cc3b7.JPG)
+#### 5.3 add하기전에 mod or delete 실행
+![11  노 수정](https://user-images.githubusercontent.com/82923905/177537176-47efb1ed-ff3a-40a5-83ef-c1a949b042b2.JPG)
+![12  노 삭제](https://user-images.githubusercontent.com/82923905/177537199-dc248519-b50f-4710-a85a-3da037ca72bb.JPG)
+#### 5.4 add or mod 후에 add 실행
+![14  add두번](https://user-images.githubusercontent.com/82923905/177537254-9efcc778-8b39-4af6-8776-fe178eeb8c16.JPG)
+#### 5.5 event가 add,mod,delete가 아닌 경우
+![15  없음](https://user-images.githubusercontent.com/82923905/177537318-b6ed5189-c403-41c1-a4ac-f1eb40ee2c19.JPG)
+
