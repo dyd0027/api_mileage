@@ -41,14 +41,14 @@
 ## 3_실행 방법
 - 스키마
   - admin.sql을 실행 시켜 database 및 계정을 생성해 준다. (db:triple, id:triple, pw:triple)
-  - user.sql을 실행 시켜 2.스키마 설계에 정의 된 테이블을 생성한다.
+  - user.sql을 실행 시켜 [스키마 설계](#2_스키마-설계)에 정의 된 테이블을 생성한다.
   - data.sql을 실행 시켜 테이블에 user와 place 데이터를 넣어준다.
 - Spring
   - STS3에 해당 프로젝트를 import 시킨다.
   - 개발환경에 맞게 셋팅 후 프로젝트 실행시킨다.
 - event
   - 조건에 맞게 add, mod, delete를 시켜준다(reviewID는 이벤트마다 UUID포멧으로 유니크한 값을 넣어주세요.)
-  - 예외사항은 5.예외사항 참조
+  - 예외사항은 [예외사항](#5_예외사항) 참조
 - 포인트 조회
   - GET 방식 url : /inquiry 
   - userID 만 입력하여 해당 유저의 모든 포인트 히스토리를 장소별로 확인.
